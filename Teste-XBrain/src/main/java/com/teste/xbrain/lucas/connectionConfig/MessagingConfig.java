@@ -21,7 +21,7 @@ public class MessagingConfig {
 
 	@Bean
 	public Queue queue() {
-		return new Queue(RabbitConstants.QUEUE);
+		return new Queue(RabbitConstants.QUEUE, true);
 	}
 	@Bean
 	public TopicExchange exchange() {
