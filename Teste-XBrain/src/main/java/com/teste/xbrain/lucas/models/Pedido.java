@@ -24,9 +24,10 @@ public class Pedido {
 
 	@ManyToMany
 	private List<Produto> produtos = new ArrayList<>();
-
-	private Double precoTotal;
 	
+	private Double valorTotal;
+	private String ederecoDaEntrega;
+
 	
 	public Pedido() {
 	}
@@ -55,14 +56,22 @@ public class Pedido {
 		this.produtos.add(produto);
 	}
 
-	public Double getPrecoTotal() {
-		return precoTotal;
+	public Double getValorTotal() {
+		return valorTotal;
 	}
 
-	public void setPrecoTotal(Double precoTotal) {
-		this.precoTotal = precoTotal;
+	public void setValorTotal(Double valorTotal) {
+		this.valorTotal = valorTotal;
 	}
-	
+
+	public String getEderecoDaEntrega() {
+		return ederecoDaEntrega;
+	}
+
+	public void setEderecoDaEntrega(String ederecoDaEntrega) {
+		this.ederecoDaEntrega = ederecoDaEntrega;
+	}
+
 	
 
 }
