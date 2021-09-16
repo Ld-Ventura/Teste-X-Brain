@@ -19,7 +19,7 @@ class ClienteRepoTest {
 	private ClienteRepo clienteRepo;
 	
 	@Test
-	void deveDevolverumClientePeloNomeDado() {
+	void deveDevolverUmClientePeloNomeDado() {
 		String nomeCliente = "Fulano";
 		Cliente clienteEncontrado = clienteRepo.findByNome(nomeCliente);
 		Assert.assertNotNull(clienteEncontrado);
@@ -28,7 +28,7 @@ class ClienteRepoTest {
 	}
 
 	@Test
-	void naoDeveDevolverumClientePeloNomeInválidoNaDB() {
+	void naoDeveDevolverUmClientePeloNomeInválidoNaDB() {
 		String nomeCliente = "John";
 		Cliente clienteEncontrado = clienteRepo.findByNome(nomeCliente);
 		Assert.assertNull(clienteEncontrado);

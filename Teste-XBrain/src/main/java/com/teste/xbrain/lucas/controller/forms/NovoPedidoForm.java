@@ -23,25 +23,30 @@ public class NovoPedidoForm {
 
 	public Pedido toPedido(ClienteRepo clienteRepo, ProdutoRepo produtoRepo) {
 		Pedido pedido = new Pedido();
+
 		Cliente clinteByNone = clienteRepo.findByNome(cliente);
-		
 		pedido.setCliente(clinteByNone);
 		pedido.setEderecoDaEntrega(clinteByNone.getEndereco());
-		
-		
-		Double valorTotal = .0;
-		for (String produto : produtos) {
-			Produto produtofindByNome = produtoRepo.findByNome(produto);
-			pedido.add(produtofindByNome);
-			valorTotal += produtofindByNome.getPreco();
-		}
-		
-		pedido.setValorTotal(valorTotal);
+		addProdutos(produtoRepo, pedido);
+		pedido.setValorTotal(somaValorTotal(produtoRepo));
+
 		return pedido;
 
 	}
-	
 
+	private void addProdutos(ProdutoRepo produtoRepo, Pedido pedido) {
+		for (String prod : produtos) {
+			Produto produtoFind = produtoRepo.findByNome(prod);
+			pedido.add(produtoFind);
+		}
+	}
 
+	private Double somaValorTotal(ProdutoRepo produtoRepo) {
+		Double valorTotal = .0;
+		for (String produto : produtos) {
+			valorTotal += produtoRepo.findByNome(produto).getPreco();
+		}
+		return valorTotal;
+	}
 
 }
