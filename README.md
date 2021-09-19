@@ -7,4 +7,4 @@
 -ConsumerApiBD: http://localhost:9090/h2-console;
 
 
--Doc Swagger: http://localhost:9090/swagger-ui.html;
+-Doc Swagger para as duas Api's: http://localhost:9090/swagger-ui.html;
