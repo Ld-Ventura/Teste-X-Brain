@@ -39,7 +39,7 @@ class ProdutoControllerTest {
 		
 	}
 	@Test
-	public void deveDevolver400PoisOvalorDeveSerMaiorQueZero() throws Exception {
+	public void deveDevolver400PoisOPrecoDeveSerMaiorQueZero() throws Exception {
 		
 		URI uri = new URI("/produtos/novoproduto");
 		String json = "{ \"nome\"  :  \"Tal\"  , \"preco\": 0}";
@@ -55,7 +55,7 @@ class ProdutoControllerTest {
 		
 	}
 	@Test
-	public void deveDevolver400PoisOvalorNenhumCampoDeveSerNullOuVazio() throws Exception {
+	public void deveDevolver400PoisNenhumCampoDeveSerNullOuVazio() throws Exception {
 		
 		URI uri = new URI("/produtos/novoproduto");
 		String json = "{ \"nome\"  :  \"\"  , \"preco\": null }";
