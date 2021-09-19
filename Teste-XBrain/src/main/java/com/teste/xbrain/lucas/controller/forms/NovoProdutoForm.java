@@ -1,22 +1,23 @@
 package com.teste.xbrain.lucas.controller.forms;
 
-import java.util.List;
-
+import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import lombok.Getter;
 
 @Getter
-public class NovoPedidoForm {
+public class NovoProdutoForm {
 
 	@NotNull
 	@NotEmpty
-	private String cliente;
-	@NotNull
-	@NotEmpty
-	private List<String> produtos;
-
+	private String nome;
 	
-
+	@DecimalMin(value = "0.01", message = "Valor deve ser maior que ZERO")
+	@NotNull
+	private Double preco;
+	
+	
+	
+	
 }

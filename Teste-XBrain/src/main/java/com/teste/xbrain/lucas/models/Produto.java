@@ -6,8 +6,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import lombok.Data;
+
 @Entity
 @Table(name = "produtos")
+@Data
 public class Produto {
 
 	@Id
@@ -17,27 +20,6 @@ public class Produto {
 	private String nome;
 	private Double preco;
 
-	public Produto() {
-	}
 
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public Double getPreco() {
-		return preco;
-	}
-
-	public void setPreco(Double preco) {
-		this.preco = preco;
-	}
-
-	public Long getId() {
-		return id;
-	}
 
 }

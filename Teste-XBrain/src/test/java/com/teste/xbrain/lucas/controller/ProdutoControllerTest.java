@@ -16,18 +16,18 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-class PedidoControllerTest {
+class ProdutoControllerTest {
 
 	@Autowired
 	private MockMvc mockMvc;
 	
 
 	@Test
-	public void deveDevolver201CriandoNovoPedido() throws Exception {
+	public void deveDevolver201CriandoNovoProduto() throws Exception {
 		
-		URI uri = new URI("/pedidos/novopedido");
-		String json = "{\"cliente\":\"Ciclano\", \"produtos\":[\"Televisao\",\"Celular\",\"Note-book\"]}";
-		
+		URI uri = new URI("/produtos/novoproduto");
+		String json = "{ \"nome\"  :  \"Tal\"  , \"preco\": 500.00}";
+
 		mockMvc
 		.perform(MockMvcRequestBuilders
 				.post(uri)
@@ -38,12 +38,11 @@ class PedidoControllerTest {
 				.is(201));
 		
 	}
-	
 	@Test
-	public void deveDevolver404CriandoNovoPedidoPorItensSeremInválidosNaDb() throws Exception {
+	public void deveDevolver400PoisOvalorDeveSerMaiorQueZero() throws Exception {
 		
-		URI uri = new URI("/pedidos/novopedido");
-		String json = "{\"cliente\":\"John\", \"produtos\":[\"Carro\",\"Moto\",\"Pneu\"]}";
+		URI uri = new URI("/produtos/novoproduto");
+		String json = "{ \"nome\"  :  \"Tal\"  , \"preco\": 0}";
 		
 		mockMvc
 		.perform(MockMvcRequestBuilders
@@ -52,15 +51,14 @@ class PedidoControllerTest {
 				.contentType(MediaType.APPLICATION_JSON))
 		.andExpect(MockMvcResultMatchers
 				.status()
-				.isBadRequest());
+				.is(400));
 		
 	}
-	
 	@Test
-	public void deveDevolver400CriandoNovoPedidoPorCamposEstaremVaziosOuNullos() throws Exception {
+	public void deveDevolver400PoisOvalorNenhumCampoDeveSerNullOuVazio() throws Exception {
 		
-		URI uri = new URI("/pedidos/novopedido");
-		String json = "{\"cliente\": null, \"produtos\": []";
+		URI uri = new URI("/produtos/novoproduto");
+		String json = "{ \"nome\"  :  \"\"  , \"preco\": null }";
 		
 		mockMvc
 		.perform(MockMvcRequestBuilders
@@ -69,8 +67,9 @@ class PedidoControllerTest {
 				.contentType(MediaType.APPLICATION_JSON))
 		.andExpect(MockMvcResultMatchers
 				.status()
-				.isBadRequest());
+				.is(400));
 		
 	}
+	
 	
 }

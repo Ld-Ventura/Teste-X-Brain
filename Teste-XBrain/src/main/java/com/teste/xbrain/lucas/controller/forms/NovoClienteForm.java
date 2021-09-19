@@ -1,22 +1,19 @@
 package com.teste.xbrain.lucas.controller.forms;
 
-import java.util.List;
-
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import lombok.Getter;
 
 @Getter
-public class NovoPedidoForm {
+public class NovoClienteForm {
 
 	@NotNull
 	@NotEmpty
-	private String cliente;
+	private String nome;
 	@NotNull
 	@NotEmpty
-	private List<String> produtos;
+	private String endereco;
 
-	
 
 }

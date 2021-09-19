@@ -6,8 +6,7 @@ import org.springframework.stereotype.Component;
 
 import com.teste.xbrain.lucas.connectionConfig.RabbitConstants;
 import com.teste.xbrain.lucas.dto.PedidoDto;
-import com.teste.xbrain.lucas.model.Entrega;
-import com.teste.xbrain.lucas.repository.EntregaRepo;
+import com.teste.xbrain.lucas.service.EntregaService;
 
 @Component
 public class Consumer {
@@ -15,13 +14,12 @@ public class Consumer {
 
 	
 	@Autowired
-	private EntregaRepo entregaRepo;
+	private EntregaService entregaService;
+	
 	
 	@RabbitListener(queues = RabbitConstants.QUEUE)
 	public void consumeMessage(PedidoDto pedido) {
-		
-		Entrega entrega = new Entrega(pedido);
-		System.out.println("Pedido de entrega recebido:\n " + entrega);
-		entregaRepo.save(entrega);
+		entregaService.toEntrega(pedido);
+		System.out.println("Pedido de entrega recebido:\n " + pedido);
 	}
 }

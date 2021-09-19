@@ -16,17 +16,17 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-class PedidoControllerTest {
+class ClienteControllerTest {
 
 	@Autowired
 	private MockMvc mockMvc;
 	
 
 	@Test
-	public void deveDevolver201CriandoNovoPedido() throws Exception {
+	public void deveDevolver201CriandoNovoCliente() throws Exception {
 		
-		URI uri = new URI("/pedidos/novopedido");
-		String json = "{\"cliente\":\"Ciclano\", \"produtos\":[\"Televisao\",\"Celular\",\"Note-book\"]}";
+		URI uri = new URI("/clientes/novocliente");
+		String json = "{\"nome\":\"Maria\", \"endereco\":\"Qualquer 123\"}";
 		
 		mockMvc
 		.perform(MockMvcRequestBuilders
@@ -40,27 +40,10 @@ class PedidoControllerTest {
 	}
 	
 	@Test
-	public void deveDevolver404CriandoNovoPedidoPorItensSeremInválidosNaDb() throws Exception {
+	public void deveDevolver400CriandoNovoClientePorCamposEstaremVaziosOuNulos() throws Exception {
 		
-		URI uri = new URI("/pedidos/novopedido");
-		String json = "{\"cliente\":\"John\", \"produtos\":[\"Carro\",\"Moto\",\"Pneu\"]}";
-		
-		mockMvc
-		.perform(MockMvcRequestBuilders
-				.post(uri)
-				.content(json)
-				.contentType(MediaType.APPLICATION_JSON))
-		.andExpect(MockMvcResultMatchers
-				.status()
-				.isBadRequest());
-		
-	}
-	
-	@Test
-	public void deveDevolver400CriandoNovoPedidoPorCamposEstaremVaziosOuNullos() throws Exception {
-		
-		URI uri = new URI("/pedidos/novopedido");
-		String json = "{\"cliente\": null, \"produtos\": []";
+		URI uri = new URI("/clientes/novocliente");
+		String json = "{\"nome\":null, \"endereco\":\"\"}";
 		
 		mockMvc
 		.perform(MockMvcRequestBuilders
@@ -69,8 +52,8 @@ class PedidoControllerTest {
 				.contentType(MediaType.APPLICATION_JSON))
 		.andExpect(MockMvcResultMatchers
 				.status()
-				.isBadRequest());
+				.is(400));
 		
 	}
-	
+
 }

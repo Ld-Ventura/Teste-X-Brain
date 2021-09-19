@@ -1,5 +1,7 @@
 package com.teste.xbrain.lucas.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,28 +15,20 @@ import com.teste.xbrain.lucas.connectionConfig.RabbitConstants;
 import com.teste.xbrain.lucas.controller.forms.NovoPedidoForm;
 import com.teste.xbrain.lucas.dto.PedidoDto;
 import com.teste.xbrain.lucas.models.Pedido;
-import com.teste.xbrain.lucas.repository.ClienteRepo;
-import com.teste.xbrain.lucas.repository.PedidoRepo;
-import com.teste.xbrain.lucas.repository.ProdutoRepo;
+import com.teste.xbrain.lucas.service.PedidoService;
 
 @RestController
-@RequestMapping("/loja")
+@RequestMapping("/pedidos")
 public class PedidoController {
 
 	@Autowired
-	private PedidoRepo pedidoRepo;
-	@Autowired
-	private ClienteRepo clienteRepo;
-	@Autowired
-	private ProdutoRepo produtoRepo;
-	@Autowired
 	private RabbitTemplate template;
-
+	@Autowired
+	private PedidoService pedidoService; 
+	
 	@PostMapping("/novopedido")
-	public ResponseEntity<NovoPedidoForm> novoPedido(@RequestBody NovoPedidoForm form) {
-		
-		Pedido pedido = form.toPedido(clienteRepo, produtoRepo);
-		pedidoRepo.save(pedido);
+	public ResponseEntity<NovoPedidoForm> novoPedido(@RequestBody @Valid NovoPedidoForm form) {
+		Pedido pedido = pedidoService.toPedido(form);
 		template.convertAndSend(RabbitConstants.EXCHANGE, RabbitConstants.ROUTING_KEY, new PedidoDto(pedido));
 		return ResponseEntity.status(HttpStatus.CREATED).body(form);
 	}
