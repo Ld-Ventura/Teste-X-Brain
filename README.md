@@ -1,6 +1,7 @@
 Projeto de submissão a vaga de desenvolvedor Java para empresa XBRAIN.
 
 
+O projeto em questão(desenvolvido inteiramente em JAVA), trata-se de um Client e um Consumer trocando e salvando dados simulando um ambiente de varejo.
 
 
 -MessengerApi: http://localhost:8080/;
